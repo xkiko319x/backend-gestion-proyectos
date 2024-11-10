@@ -56,6 +56,7 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
+    "https://frontend-gestion-proyectos-c4b6.vercel.app"
 ]
 
 ROOT_URLCONF = 'backend_offers.urls'
@@ -82,13 +83,25 @@ WSGI_APPLICATION = 'backend_offers.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'gestion_ofertas',
+#         'USER': 'admin',
+#         'PASSWORD': 'admin1234',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
+
+# desplegado
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gestion_ofertas',
-        'USER': 'admin',
-        'PASSWORD': 'admin1234',
-        'HOST': 'localhost',
+        'NAME': 'bemrnnvqzavtyaxhjlya',
+        'USER': 'u217cmjrapqpdww3',
+        'PASSWORD': 'bhHje246Cr8lfoqPqwa0',
+        'HOST': 'bemrnnvqzavtyaxhjlya-mysql.services.clever-cloud.com',
         'PORT': '3306',
     }
 }
