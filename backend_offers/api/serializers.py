@@ -1,6 +1,6 @@
 # api/serializers.py
 from rest_framework import serializers
-from .models import Company, Client, Responsible, Project, Offer
+from .models import Company, Client, Responsible, Project, Offer, AuthUser
 
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,3 +26,8 @@ class OfferSerializer(serializers.ModelSerializer):
     class Meta:
         model = Offer
         fields = '__all__'
+
+class AuthUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AuthUser
+        fields = ['id', 'username', 'email', 'name', 'rol', 'is_active', 'is_staff', 'rol']  # Ajusta los campos que deseas incluir

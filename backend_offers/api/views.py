@@ -9,21 +9,36 @@ from django.contrib.auth.hashers import make_password
 from rest_framework import viewsets
 from .models import Company, Client, Responsible, Project, Offer
 from .serializers import CompanySerializer, ClientSerializer, ResponsibleSerializer, ProjectSerializer, OfferSerializer
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import AuthUserSerializer
 
 class LoginView(APIView):  # Usa APIView en lugar de View
     def post(self, request):
-        username = request.data.get('username')  # Cambiado a request.data
-        password = request.data.get('password')  # Cambiado a request.data
-        user = authenticate(request, username=username, password=password)
-        
-        print(f'Username: {username}, Password: {password}')
-        print(f'Authenticated User: {user}')
+        print(request.data)
+        username = request.data.get('username')
+        password = request.data.get('password')
 
+        # Autenticar usuario
+        user = authenticate(request, username=username, password=password)
         if user is not None:
-            login(request, user)
-            return Response({"message": "Inicio de sesión exitoso!"}, status=status.HTTP_200_OK)
+            user_data = AuthUserSerializer(user).data
+            print(user_data)
+            # Generar tokens JWT
+            refresh = RefreshToken.for_user(user)
+            return Response(
+                {
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                    **user_data
+                },
+                status=status.HTTP_200_OK
+            )
         else:
-            return Response({"message": "Credenciales inválidas"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response(
+                {"message": "Credenciales inválidas"},
+                status=status.HTTP_401_UNAUTHORIZED
+            )
 
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
