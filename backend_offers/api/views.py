@@ -13,18 +13,14 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import AuthUserSerializer
 
-class LoginView(APIView):  # Usa APIView en lugar de View
+class LoginView(APIView):  
     def post(self, request):
-        print(request.data)
         username = request.data.get('username')
         password = request.data.get('password')
 
-        # Autenticar usuario
         user = authenticate(request, username=username, password=password)
         if user is not None:
             user_data = AuthUserSerializer(user).data
-            print(user_data)
-            # Generar tokens JWT
             refresh = RefreshToken.for_user(user)
             return Response(
                 {
@@ -59,6 +55,7 @@ class ResponsibleViewSet(viewsets.ModelViewSet):
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    
     def get(self, request):
         projects = Project.objects.all()
         serializer = ProjectSerializer(projects, many=True)

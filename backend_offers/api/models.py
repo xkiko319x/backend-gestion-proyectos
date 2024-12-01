@@ -27,13 +27,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'name', 'rol']  # Aquí defines los campos requeridos
+    REQUIRED_FIELDS = ['email', 'name', 'rol']
 
     def __str__(self):
         return self.username
 
-# api/models.py
-from django.db import models
 
 class Company(models.Model):
     company_id = models.AutoField(primary_key=True)
@@ -84,19 +82,3 @@ class Offer(models.Model):
 
     def __str__(self):
         return self.offer_title
-
-
-
-
-
-
-
-
-# from django.contrib.auth.models import AbstractUser
-# from django.db import models
-
-# class AuthUser(AbstractUser):  # Cambiar a heredar de AbstractUser
-#     rol = models.CharField(max_length=50)
-
-#     def __str__(self):
-#         return self.username  # Representación legible del objeto
