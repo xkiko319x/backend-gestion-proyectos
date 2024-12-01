@@ -54,7 +54,7 @@ class Client(models.Model):
 
 class Responsible(models.Model):
     responsible_id = models.AutoField(primary_key=True)
-    responsible_user_id = models.IntegerField()
+    responsible_user = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
     responsible_name = models.CharField(max_length=255)
     responsible_username = models.CharField(max_length=255)
 
@@ -64,12 +64,13 @@ class Responsible(models.Model):
 class Project(models.Model):
     project_id = models.AutoField(primary_key=True)
     project_name = models.CharField(max_length=255)
-    project_responsible = models.ForeignKey(Responsible, on_delete=models.CASCADE)
-    project_client = models.CharField(max_length=255)
+    project_client = models.ForeignKey(Client,on_delete=models.CASCADE, null=True, blank=True )
+    project_responsible = models.ForeignKey(Responsible,on_delete=models.CASCADE, null=True, blank=True )
     project_budget = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return self.project_name
+
 
 class Offer(models.Model):
     offer_id = models.AutoField(primary_key=True)
@@ -78,8 +79,8 @@ class Offer(models.Model):
     offer_amount = models.DecimalField(max_digits=10, decimal_places=2)
     offer_responsible = models.ForeignKey(Responsible, on_delete=models.CASCADE)
     offer_project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    offer_client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    offer_client_company = models.CharField(max_length=255)
+    offer_client = models.ForeignKey(Client, on_delete=models.CASCADE, null=True, blank=True)
+    offer_company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return self.offer_title

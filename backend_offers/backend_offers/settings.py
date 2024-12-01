@@ -102,13 +102,23 @@ WSGI_APPLICATION = 'backend_offers.wsgi.application'
 # }
 
 # desplegado
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'bemrnnvqzavtyaxhjlya',
+#         'USER': 'u217cmjrapqpdww3',
+#         'PASSWORD': 'bhHje246Cr8lfoqPqwa0',
+#         'HOST': 'bemrnnvqzavtyaxhjlya-mysql.services.clever-cloud.com',
+#         'PORT': '3306',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bemrnnvqzavtyaxhjlya',
-        'USER': 'u217cmjrapqpdww3',
-        'PASSWORD': 'bhHje246Cr8lfoqPqwa0',
-        'HOST': 'bemrnnvqzavtyaxhjlya-mysql.services.clever-cloud.com',
+        'NAME': 'bpp9svfa15pjiwqolu9x',
+        'USER': 'uhw8f5l87xjwsage',
+        'PASSWORD': 'Lus4Gbh72eBXveQKG9mf',
+        'HOST': 'bpp9svfa15pjiwqolu9x-mysql.services.clever-cloud.com',
         'PORT': '3306',
     }
 }

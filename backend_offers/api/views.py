@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from django.contrib.auth.hashers import make_password
 from rest_framework import viewsets
-from .models import Company, Client, Responsible, Project, Offer
+from .models import Company, Client, Responsible, Project, Offer, AuthUser
 from .serializers import CompanySerializer, ClientSerializer, ResponsibleSerializer, ProjectSerializer, OfferSerializer
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -40,6 +40,10 @@ class LoginView(APIView):  # Usa APIView en lugar de View
                 status=status.HTTP_401_UNAUTHORIZED
             )
 
+class AuthUserViewSet(viewsets.ModelViewSet):
+    queryset = AuthUser.objects.all()
+    serializer_class = AuthUserSerializer
+
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
@@ -55,6 +59,10 @@ class ResponsibleViewSet(viewsets.ModelViewSet):
 class ProjectViewSet(viewsets.ModelViewSet):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    def get(self, request):
+        projects = Project.objects.all()
+        serializer = ProjectSerializer(projects, many=True)
+        return Response(serializer.data)
 
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = Offer.objects.all()

@@ -18,9 +18,12 @@ class ResponsibleSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProjectSerializer(serializers.ModelSerializer):
+    client_name = serializers.CharField(source='project_client.client_name', read_only=True)
+    responsible_name = serializers.CharField(source='project_responsible.responsible_name', read_only=True)
+
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = ['project_id', 'project_name', 'client_name', 'project_budget', 'responsible_name']
 
 class OfferSerializer(serializers.ModelSerializer):
     class Meta:
