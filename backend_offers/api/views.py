@@ -64,3 +64,8 @@ class ProjectViewSet(viewsets.ModelViewSet):
 class OfferViewSet(viewsets.ModelViewSet):
     queryset = Offer.objects.all()
     serializer_class = OfferSerializer
+    
+    def get(self, request):
+        offers = Project.objects.all()
+        serializer = OfferSerializer(offers, many=True)
+        return Response(serializer.data)

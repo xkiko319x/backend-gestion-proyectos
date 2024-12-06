@@ -25,10 +25,23 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ['project_id', 'project_name', 'client_name', 'project_budget', 'responsible_name']
 
 class OfferSerializer(serializers.ModelSerializer):
+    client_name = serializers.CharField(source='offer_client.client_name', read_only=True)
+    company_name = serializers.CharField(source='offer_company.company_name', read_only=True)
+    project_name = serializers.CharField(source='offer_project.project_name', read_only=True)
+    responsible_name = serializers.CharField(source='offer_responsible.responsible_name', read_only=True)
+
     class Meta:
         model = Offer
-        fields = '__all__'
-
+        fields = [
+                    'offer_id',
+                    'offer_title',
+                    'offer_reference',
+                    'offer_amount',
+                    'responsible_name',
+                    'project_name',
+                    'company_name',
+                    'client_name'
+                ]
 class AuthUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthUser
